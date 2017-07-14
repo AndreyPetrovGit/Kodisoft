@@ -54,7 +54,6 @@ namespace Feeds.Controllers
 
             List<Feed> feeds = new List<Feed>();
             var collections = _db.Collections.Include(c => c.FeedCollections).ThenInclude(sc => sc.Feed).ToList();
-           // var collection = collections.FirstOrDefault(f => f.Id == id);
             foreach (var collection in collections)
             {
                 if(collection.Id == id)
@@ -81,7 +80,13 @@ namespace Feeds.Controllers
         [RouteAttribute("post")]
         public void Post([FromBody]string value)
         {
-            _db.Feeds.Add(new Feed(value, _db));
+            var newFeed = new Feed(value, _db);
+            foreach (var item in newFeed.NewItems)
+            {
+                item.FeedId = newFeed.Id;
+            }
+            _db.Feeds.Add(newFeed);
+           _db.NewsItems.AddRange(newFeed.NewItems);
             _db.SaveChanges();
         }
 

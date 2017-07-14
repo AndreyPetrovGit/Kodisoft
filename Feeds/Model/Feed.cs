@@ -48,6 +48,7 @@ namespace Feeds.Model
         }
         public Feed(String url, FeedDbContext db)
         {
+          
             NewItems = new List<NewsItem>();
             FeedCollections = new List<FeedCollection>();
             XmlTextReader xmlTextReader = new XmlTextReader(url);
@@ -81,10 +82,8 @@ namespace Feeds.Model
                             case "item":
                                 {
                                     NewsItem channelItem = new NewsItem(channelNode, this);
-                                    db.NewsItems.Add(channelItem);
-                                    
                                     NewItems.Add(channelItem);
-                                    db.SaveChanges();
+
                                     break;
                                 }
                             default:

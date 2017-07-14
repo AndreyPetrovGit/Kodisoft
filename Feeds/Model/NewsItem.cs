@@ -10,6 +10,7 @@ namespace Feeds.Model
 {
     public class NewsItem
     {
+
         public Int32 Id { get; set; }
         public String Title { get; set; }
         public String Link { get; set; }
@@ -22,7 +23,6 @@ namespace Feeds.Model
         }
         public NewsItem(XmlNode itemTag, Feed feed)
         {
-            Feed = feed;
             foreach (XmlNode xmlTag in itemTag.ChildNodes)
             {
                 switch (xmlTag.Name)

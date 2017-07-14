@@ -19,21 +19,21 @@ namespace Feeds.Controllers
         private FeedDbContext _db;
         [HttpGet("{id}")]
         [Authorize]
-        public NewsItem Get(int id)
+        public IEnumerable<NewsItem> Get(int id)
         {
-            var list = _db.NewsItems;
-            var list2 = _db.Feeds;
-            var list3  = _db.NewsItems.Include(c => c).ToList();
-            NewsItem news = list.FirstOrDefault(f => f.Id == id);
-            return news;
+
+            var list2 = _db.Feeds.Include(f => f.NewItems).ToList();
+            var list3 = list2.FirstOrDefault(f => f.Id == id);
+            List<NewsItem> newsCopy = new List<NewsItem>();
+            var res = list3.NewItems.ToList();
+            res.ForEach(n => newsCopy.Add(new NewsItem() {Id = n.Id, FeedId = n.FeedId, Link = n.Link, Title = n.Title, Description = n.Description }));
+            return newsCopy;
         }
         [HttpGet("Collection/{id}")]
         [Authorize]
         public IEnumerable<NewsItem> GetCollection(int id)
         {
-            IEnumerable<NewsItem>  newsCollections = _db.Collections.First(c => c.Id == id)
-                .FeedCollections.Select(a=>a.Feed).SelectMany(f=>f.NewItems);
-            return newsCollections;
+            return new List<NewsItem>();
         }
         public NewsController(FeedDbContext db)
         {

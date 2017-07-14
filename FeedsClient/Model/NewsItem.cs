@@ -13,6 +13,5 @@ namespace FeedsClient.Model
         public String Link { get; set; }
         public String Description { get; set; }
         public Int32 FeedId { get; set; }
-        public Feed Feed { get; set; }
     }
 }

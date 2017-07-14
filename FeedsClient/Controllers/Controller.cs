@@ -308,10 +308,14 @@ namespace FeedsClient.Controllers
                     using (var r = await client.GetAsync(new Uri($"{BaseUrl}/News/{newsItem}")))
                     {
                         string result = await r.Content.ReadAsStringAsync();
-                        var objResponse = JsonConvert.DeserializeObject<NewsItem>(result);
+                        var objResponse = JsonConvert.DeserializeObject<IEnumerable<NewsItem>>(result);
                         Console.WriteLine("Result:");
-                        Console.WriteLine($"Id:{objResponse.Id}    Title:{objResponse.Title} Link:{objResponse.Link}");
-                        Console.WriteLine($"Description:{objResponse.Description} ");
+                        foreach (var item  in objResponse)
+                        {
+                            Console.WriteLine($"Id:{item.Id}    Title:{item.Title} Link:{item.Link}");
+                            Console.WriteLine($"Description:{item.Description} ");
+                        }
+
                     }
                 }
             }
