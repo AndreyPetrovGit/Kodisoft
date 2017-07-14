@@ -47,24 +47,24 @@ namespace Feeds.Controllers
             return _db.Collections.First(c => c.Name == value 
             && c.User == _db.Users.First(u => u.Login == User.Identity.Name)).Id;
         }
-        //  @13    
-        // PUT api/values/5
+        
+        /// <summary>
+        /// Add Feed to Collection, client function # 13
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="feedId"></param>
         [HttpPut("add/{id}")]
         [Authorize]
         public void Put(int id, [FromBody]int feedId)
         {
+            Collection selectedCollection = _db.Collections.First(c => c.Id == id );
             FeedCollection feedCollection = new FeedCollection()
             {
                 CollectionId = id,
-                Collection = _db.Collections.First(c => c.Id == id),
-                FeedId = feedId,
-                Feed = _db.Feeds.First(f => f.Id == feedId)
+                FeedId = feedId
             };
-            if(feedCollection != null)
-            { 
-                _db.Collections.First(c => c.Id == id).FeedCollections.Add( feedCollection);
-                _db.Feeds.First(f => f.Id == feedId).FeedCollections.Add(feedCollection);
-            }
+            selectedCollection.FeedCollections.Add(feedCollection);
+            _db.SaveChanges();
         }
         public CollectionController(FeedDbContext db)
         {

@@ -15,21 +15,10 @@ namespace Feeds.Model
 
         public ICollection<NewsItem> NewItems { get; set; }
         public ICollection<FeedCollection> FeedCollections { get; set; }
-        public Feed()
-        {
-            NewItems = new List<NewsItem>();
-            FeedCollections = new List<FeedCollection>();
-        }
 
         public override string ToString()
         {
-            // List<String> allAnswer = new List<string>();
-            /* foreach (NewsItem feedItem in this.NewItems)
-             {
-                 allAnswer.Add($"Title: {feedItem.Title}; Link: {feedItem.Link}; \n Description: {feedItem.Description}; \n");
-             }*/
-
-            return string.Format($"Id={Id}, Title={Title}, Description={Descripton}, Link={Link}");
+            return string.Format($"Id={Id}, Title={Title}, Link={Link}, \nDescription={Descripton}");
         }
         public bool Contains(NewsItem item)
         {
@@ -42,7 +31,6 @@ namespace Feeds.Model
             }
             return false;
         }
-
         public NewsItem GetItem(String title)
         {
             foreach (NewsItem itemForCheck in NewItems)
@@ -54,10 +42,14 @@ namespace Feeds.Model
             }
             return null;
         }
+        public Feed()
+        {
 
+        }
         public Feed(String url, FeedDbContext db)
         {
             NewItems = new List<NewsItem>();
+            FeedCollections = new List<FeedCollection>();
             XmlTextReader xmlTextReader = new XmlTextReader(url);
             XmlDocument xmlDoc = new XmlDocument();
             try
@@ -89,7 +81,10 @@ namespace Feeds.Model
                             case "item":
                                 {
                                     NewsItem channelItem = new NewsItem(channelNode, this);
+                                    db.NewsItems.Add(channelItem);
+                                    
                                     NewItems.Add(channelItem);
+                                    db.SaveChanges();
                                     break;
                                 }
                             default:
@@ -105,8 +100,6 @@ namespace Feeds.Model
                 if (ex.Status == System.Net.WebExceptionStatus.NameResolutionFailure)
                 {
                     throw new Exception("Connection with this source is impossible! " + url);
-
-
                 } else {
                     throw ex;
                     }
@@ -120,9 +113,7 @@ namespace Feeds.Model
             finally
             {
                 xmlTextReader.Close();
-            }
-            db.NewsItems.AddRange(NewItems);
-            db.SaveChanges();
+            } 
         }
     }
 }

@@ -16,6 +16,10 @@ namespace Feeds.Model
         public String Description { get; set; }
         public Int32 FeedId { get; set; }
         public Feed Feed { get; set; }
+        public NewsItem()
+        {
+
+        }
         public NewsItem(XmlNode itemTag, Feed feed)
         {
             Feed = feed;

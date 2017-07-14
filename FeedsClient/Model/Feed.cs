@@ -13,11 +13,9 @@ namespace FeedsClient.Model
         public String Descripton { get; set; }
         public String Link { get; set; }
         public ICollection<NewsItem> NewItems { get; set; }
-        public ICollection<FeedCollection> FeedCollections { get; set; }
-        public Feed()
+        public override string ToString()
         {
-            NewItems = new List<NewsItem>();
-            FeedCollections = new List<FeedCollection>();
+            return $"Id:{Id}    Title:{Title}     Link:{Link}    \nDescripton:{Descripton} ";
         }
     }
 }

@@ -15,10 +15,10 @@ namespace FeedsClient.View
             Console.WriteLine("_________________________MENU________________________________________________________________________");
             Console.WriteLine("|{0,-20}{1,-30}", "command", "action");
             Console.WriteLine("|----------------------------------------------------------------------------------------------------|");
-            Console.WriteLine("|{0,-20}{1,-30}", "0", "Get Feed by id");
-            Console.WriteLine("|{0,-20}{1,-30}", "1", "Get Feeds");// all ; where collection id = ...
-            Console.WriteLine("|{0,-20}{1,-30}", "2", "Get Feed by collection Id");// id; title; link;
-            Console.WriteLine("|{0,-20}{1,-30}", "3", "Delete Feed from Collection Where"); //id ; Name;
+            Console.WriteLine("|{0,-20}{1,-30}", "0", "Get Feed by id");//+
+            Console.WriteLine("|{0,-20}{1,-30}", "1", "Get all Feeds");// +
+            Console.WriteLine("|{0,-20}{1,-30}", "2", "Get Feed by collection Id");// +
+            Console.WriteLine("|{0,-20}{1,-30}", "3", "Delete Feed from Collection Id"); //
             Console.WriteLine("|{0,-20}{1,-30}", "4", "Add Feed with ref=... "); //@ 
             Console.WriteLine("|{0,-20}{1,-30}", "5", "Get Collections");//by user
             Console.WriteLine("|{0,-20}{1,-30}", "6", "Get Collection by id");
@@ -28,7 +28,8 @@ namespace FeedsClient.View
             Console.WriteLine("|{0,-20}{1,-30}", "10", "Get News ForEach Collection with name = ..."); //@
             Console.WriteLine("|{0,-20}{1,-30}", "11", "Change State to Cache //load content form server Cache ");
             Console.WriteLine("|{0,-20}{1,-30}", "12", "Change State to Hard//every query is hard reload");
-            Console.WriteLine("|{0,-20}{1,-30}", "13", "Add Feed width id to Collection width id ");
+            Console.WriteLine("|{0,-20}{1,-30}", "13", "Add Feed width id to Collection width id ");//+ 
+            Console.WriteLine("|{0,-20}{1,-30}", "14", "DeleteFeedById");
             Console.WriteLine("|----------------------------------------------------------------------------------------------------|");
             Console.WriteLine();
 

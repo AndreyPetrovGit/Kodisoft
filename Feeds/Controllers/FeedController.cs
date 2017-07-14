@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Feeds.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
 namespace Feeds.Controllers
 
 {
@@ -19,44 +20,59 @@ namespace Feeds.Controllers
     public class FeedController : Controller
     {
         private FeedDbContext _db;
+
+        /// <summary>
+        ///  Return all feeds, client method #1
+        /// </summary>
+        /// <returns>IEnumerable<Feed></returns>
         [HttpGet]
         [Authorize]
         public IEnumerable<Feed> Get()
         {
-            List<String> allAnswer = new List<string>();
-            //http://feeds.feedburner.com/PhilosophicalGeek -ok
-            //http://fooblog.com/feed - error
-            // https://www.theverge.com/rss/index.xml  -atom ?
-            // https://www.engadget.com/rss.xml - good but addition content https://www.engadget.com/rss.xml
-            // Collection collection = new Collection() { Id = 0, Name = "First Collection", Feeds = new List<Feed>() };
             IEnumerable<Feed> feeds = _db.Feeds;
             return feeds;
         }
 
-        // 0@
+        /// <summary>
+        /// Return feed by id, client method #0 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [Authorize]
-        public string Get(int id)
+        public Feed Get(int id)
         {
-            var user =  User.Identity.Name ;
             Feed feed = _db.Feeds.FirstOrDefault(f => f.Id == id);
-            return JsonConvert.SerializeObject(feed);
+            return feed;
         }
+
         // 2@
         [HttpGet("GetFromCollection/{id}")]
         [Authorize]
         public IEnumerable<Feed> GetFromCollection(int id)
         {
-            var user = User.Identity.Name;
-            ICollection<FeedCollection> feedsCollection = _db.Collections.FirstOrDefault(f => f.Id == id )
-                            ?.FeedCollections;
-            IEnumerable<Feed> res = new List<Feed>();
-            if (feedsCollection != null) { 
-                res = from t1 in feedsCollection
-                          join t2 in _db.Feeds on t1.FeedId equals t2.Id
-                          select t2;
+
+            List<Feed> feeds = new List<Feed>();
+            var collections = _db.Collections.Include(c => c.FeedCollections).ThenInclude(sc => sc.Feed).ToList();
+           // var collection = collections.FirstOrDefault(f => f.Id == id);
+            foreach (var collection in collections)
+            {
+                if(collection.Id == id)
+                {
+                    var ir = collection.FeedCollections;
+                    ir.Select(sc => sc.Feed).ToList()
+                    .ForEach( i=> feeds
+                            .Add(new Feed()
+                            {
+                                Id = i.Id,
+                                Link = i.Link,
+                                Descripton = i.Descripton,
+                                Title = i.Title,
+                                NewItems = i.NewItems
+                            }));
+                }
             }
-            return res;
+            return feeds;
         }
 
         // POST api/values
@@ -76,17 +92,31 @@ namespace Feeds.Controllers
         {
         }
 
-        [HttpGet("Delete/{id}")]
+        [HttpGet("Delete/{cid}/{id}")]
         [Authorize]
-        public  void Delete(int id)
+        public  void Delete(int cid, int id)
         {
 
-                Feed feed =  _db.Feeds.ToList().FirstOrDefault(f => f.Id == id);
-                if (feed != null)
-                {
-                    _db.Feeds.Remove(feed);
-                    _db.SaveChanges();
-                }
+            Collection selectedCollection = _db.Collections.First(c => c.Id == cid);
+            FeedCollection fc = selectedCollection.FeedCollections.FirstOrDefault(c => c.FeedId == id && c.CollectionId == cid);
+            if (fc != null)
+            {
+                selectedCollection.FeedCollections.Remove(fc);
+            }
+            _db.SaveChanges();
+        }
+
+        [HttpGet("Delete/{id}")]
+        [Authorize]
+        public void Delete(int id)
+        {
+
+            Feed feed = _db.Feeds.ToList().FirstOrDefault(f => f.Id == id);
+            if (feed != null)
+            {
+                _db.Feeds.Remove(feed);
+                _db.SaveChanges();
+            }
 
         }
         public FeedController(FeedDbContext db)

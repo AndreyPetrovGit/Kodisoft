@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Feeds.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
 namespace Feeds.Controllers
 {
     [Route("api/News")]
@@ -20,7 +21,10 @@ namespace Feeds.Controllers
         [Authorize]
         public NewsItem Get(int id)
         {
-            NewsItem news = _db.NewsItems.FirstOrDefault(f => f.Id == id);
+            var list = _db.NewsItems;
+            var list2 = _db.Feeds;
+            var list3  = _db.NewsItems.Include(c => c).ToList();
+            NewsItem news = list.FirstOrDefault(f => f.Id == id);
             return news;
         }
         [HttpGet("Collection/{id}")]

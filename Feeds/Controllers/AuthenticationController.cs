@@ -20,7 +20,6 @@ namespace Feeds.Controllers
     {
         private FeedDbContext _db;
 
-
         [HttpPost]
         [RouteAttribute("token")]
         public  string Token([FromBody] dynamic authData)
