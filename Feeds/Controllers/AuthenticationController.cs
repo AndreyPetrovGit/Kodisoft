@@ -24,16 +24,17 @@ namespace Feeds.Controllers
         [RouteAttribute("token")]
         public  string Token([FromBody] dynamic authData)
         {
-            // var username = Request.Form["username"];
-            //var password = Request.Form["password"];
-         //   _db.Users.Add(new User { Login = "123", Password = "123" });
-          //  _db.Users.Add(new User { Login = "333", Password = "444" });
-          //  _db.SaveChanges();
-            var identity = GetIdentity((String)authData.username, (String)authData.password);
+             var username = (String)authData.username;
+             var password = (String)authData.password;
+
+            var identity = GetIdentity(username, password);
             if (identity == null)
             {
-                Response.StatusCode = 400;
-                return "Invalid username or password";
+                _db.Users.Add(new User { Login = username, Password = password });
+                _db.SaveChanges();
+                identity = GetIdentity(username, password);
+                // Response.StatusCode = 400;
+                // return "Invalid username or password";
             }
 
             var now = DateTime.UtcNow;

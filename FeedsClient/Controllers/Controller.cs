@@ -194,7 +194,7 @@ namespace FeedsClient.Controllers
                 Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
         }
-        //3 -
+        //3 
         public async void DeleteFeedByIdFromCollection()
         {
             try
@@ -266,15 +266,25 @@ namespace FeedsClient.Controllers
             }
 
         }
-        //6 -
-        public async void GetCollectionById()
-        {
-
-        }
-        //7 -
+        //7
         public async void DeleteCollectionById()
         {
-
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    Int32 collectionId = DemandInt32("Enter collection id:");
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                    using (var r = await client.DeleteAsync(new Uri($"{BaseUrl}/Collection/Delete/{collectionId}")))
+                    {
+                        Console.WriteLine("Complete!");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error! Press Enter!{ex.Data}");
+            }
         }
         //8 +
         public async void CreateNewCollectionWithName()
@@ -353,16 +363,7 @@ namespace FeedsClient.Controllers
             }
 
         }
-        //11
-        public async void ToCacheState()
-        {
 
-        }
-        //12
-        public async void ToHardState()
-        {
-
-        }
         //to Collection where name =...
         //13 +
         public async void AddFeedToCollection()
@@ -386,7 +387,7 @@ namespace FeedsClient.Controllers
 
         }
         //14 
-        public async void DeleteFeedById()
+      /*  public async void DeleteFeedById()
         {
             try
             {
@@ -404,7 +405,7 @@ namespace FeedsClient.Controllers
             {
                 Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
-        }
+        }*/
         #endregion
 
 
@@ -420,15 +421,15 @@ namespace FeedsClient.Controllers
             _commandMap.Add(3, new Action(DeleteFeedByIdFromCollection));
             _commandMap.Add(4, new Action(AddFeedWithRerf));
             _commandMap.Add(5, new Action(GetMyCollections));
-            _commandMap.Add(6, new Action(GetCollectionById));
+  //          _commandMap.Add(6, new Action(GetCollectionById));
             _commandMap.Add(7, new Action(DeleteCollectionById));
             _commandMap.Add(8, new Action(CreateNewCollectionWithName));
             _commandMap.Add(9, new Action(GetNewsByFeedId));
             _commandMap.Add(10, new Action(GetNewsFromCollectionWithId));
-            _commandMap.Add(11, new Action(ToCacheState));
-            _commandMap.Add(12, new Action(ToHardState));
+           // _commandMap.Add(11, new Action(ToCacheState));
+           // _commandMap.Add(12, new Action(ToHardState));
             _commandMap.Add(13, new Action(AddFeedToCollection));
-            _commandMap.Add(14, new Action(DeleteFeedById));
+           // _commandMap.Add(14, new Action(DeleteFeedById));
         }
     }
 }

@@ -7,7 +7,6 @@ using Feeds.DAL;
 using Feeds.Services;
 using System.Xml;
 using System.Xml.Linq;
-using Feeds.Services.NewItemProviders;
 
 namespace Feeds.Services.FeedProvider
 {
@@ -17,8 +16,6 @@ namespace Feeds.Services.FeedProvider
         public Feed GetFeed(string url)
         {
             Feed feed = GetFeedFromDb(url);
-
-
             if (feed == null)
             {
                 feed = GetFeedFromHttp(url);
@@ -31,7 +28,7 @@ namespace Feeds.Services.FeedProvider
         {
             return _db.Feeds.FirstOrDefault(f => f.Link == url);
         }
-        private Feed GetFeedFromHttp(string url)
+        public Feed GetFeedFromHttp(string url)
         {
             Feed feed = null;
             try
@@ -76,66 +73,6 @@ namespace Feeds.Services.FeedProvider
                 NewItems = news.ToList()
             };
             return feed;
-            /* String title = default(string);
-             String description = default(string);
-             String link = default(string);
-             NewsItem channelItem;
-             List<NewsItem> newItems = new List<NewsItem>();
-             Feed feed = null;
-             NewsItemXMLProvider newItemXmlProvider = new NewsItemXMLProvider();
-             try
-             {
-                 XmlNode channelXmlNode = xmlDoc.GetElementsByTagName("channel")[0];
-                 if (channelXmlNode != null)
-                 {
-                     foreach (XmlNode channelNode in channelXmlNode.ChildNodes)
-                     {
-                         switch (channelNode.Name)
-                         {
-                             case "title":
-                                 {
-                                     title = channelNode.InnerText;
-                                     break;
-                                 }
-                             case "description":
-                                 {
-                                     description = channelNode.InnerText;
-                                     break;
-                                 }
-                             case "link":
-                                 {
-                                     link = channelNode.InnerText;
-                                     break;
-                                 }
-                             case "item":
-                                 {
-                                     channelItem = newItemXmlProvider.GetWewsItem(channelNode);
-                                     newItems.Add(channelItem);
-                                     break;
-                                 }
-                             default:
-                                 break;
-                         }
-                     }
-                 }
-                 else
-                 {
-                     throw new Exception("XML error. Chanels description not found!");
-                 }
-             }
-             catch (Exception)
-             {
-
-                 throw;
-             }
-             feed = new Feed()
-             {
-                 Title = title,
-                 Descripton = description,
-                 Link = link,
-                 NewItems = newItems
-             };
-             return feed;*/
         }
         private Feed GetFeedFromAtom(XDocument xmlDoc)
         {

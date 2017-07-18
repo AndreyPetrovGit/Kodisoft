@@ -15,21 +15,22 @@ namespace FeedsClient.View
             Console.WriteLine("_________________________MENU________________________________________________________________________");
             Console.WriteLine("|{0,-20}{1,-30}", "command", "action");
             Console.WriteLine("|----------------------------------------------------------------------------------------------------|");
-            Console.WriteLine("|{0,-20}{1,-30}", "0", "Get Feed by id");//+
-            Console.WriteLine("|{0,-20}{1,-30}", "1", "Get all Feeds");// +
-            Console.WriteLine("|{0,-20}{1,-30}", "2", "Get Feed by collection Id");// +
-            Console.WriteLine("|{0,-20}{1,-30}", "3", "Delete Feed from Collection Id"); //
-            Console.WriteLine("|{0,-20}{1,-30}", "4", "Add Feed with ref=... "); //@ 
-            Console.WriteLine("|{0,-20}{1,-30}", "5", "Get Collections");//by user
-            Console.WriteLine("|{0,-20}{1,-30}", "6", "Get Collection by id");
+            Console.WriteLine("|{0,-20}{1,-30}", "0", "Get Feed by id");
+            Console.WriteLine("|{0,-20}{1,-30}", "1", "Get all Feeds");
+            Console.WriteLine("|{0,-20}{1,-30}", "2", "Get Feed by Collection Id");
+            Console.WriteLine("|{0,-20}{1,-30}", "4", "Add Feed");
+  //          Console.WriteLine("|{0,-20}{1,-30}", "14", "DeleteFeedById");
+            Console.WriteLine("|{0,-20}{1,-30}", "3", "Delete Feed from Collection");
+            Console.WriteLine();
+            Console.WriteLine("|{0,-20}{1,-30}", "5", "Get Collections");
+            Console.WriteLine("|{0,-20}{1,-30}", "8", "Create new Collection");
+            Console.WriteLine("|{0,-20}{1,-30}", "13", "Put Feed to Collection");
             Console.WriteLine("|{0,-20}{1,-30}", "7", "Delete Collection by id");
-            Console.WriteLine("|{0,-20}{1,-30}", "8", "Create new Collection"); //name @
-            Console.WriteLine("|{0,-20}{1,-30}", "9", "Get News Where Feed id = ...");
-            Console.WriteLine("|{0,-20}{1,-30}", "10", "Get News ForEach Collection with name = ..."); //@
-            Console.WriteLine("|{0,-20}{1,-30}", "11", "Change State to Cache //load content form server Cache ");
-            Console.WriteLine("|{0,-20}{1,-30}", "12", "Change State to Hard//every query is hard reload");
-            Console.WriteLine("|{0,-20}{1,-30}", "13", "Add Feed width id to Collection width id ");//+ 
-            Console.WriteLine("|{0,-20}{1,-30}", "14", "DeleteFeedById");
+            Console.WriteLine();
+            Console.WriteLine("|{0,-20}{1,-30}", "9", "Get News by Feed id");
+            Console.WriteLine("|{0,-20}{1,-30}", "10", "Get News by Collection name");
+            
+
             Console.WriteLine("|----------------------------------------------------------------------------------------------------|");
             Console.WriteLine();
 

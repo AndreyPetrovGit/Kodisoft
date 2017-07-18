@@ -68,6 +68,19 @@ namespace Feeds.Controllers
             selectedCollection.FeedCollections.Add(feedCollection);
             _db.SaveChanges();
         }
+
+        [HttpDelete("Delete/{id}")]
+        [Authorize]
+        public void Delete(int id)
+        {
+            var collection = _db.Collections.ToList().FirstOrDefault(c => c.Id == id);
+            if (collection != null)
+            {
+                _db.Collections.Remove(collection);
+                _db.SaveChanges();
+            }
+        }
+
         public CollectionController(FeedDbContext db)
         {
             _db = db;
