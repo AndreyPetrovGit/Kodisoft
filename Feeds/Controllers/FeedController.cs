@@ -12,6 +12,11 @@ using Feeds.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using Feeds.DAL;
+using Feeds.Services.Jobs;
+using Feeds.Services.FeedProvider;
+using System.Threading;
+
 namespace Feeds.Controllers
 
 {
@@ -73,21 +78,17 @@ namespace Feeds.Controllers
             }
             return feeds;
         }
-
-        // POST api/values
+        /// <summary>
+        /// Save new feed.
+        /// </summary>
+        /// <param name="url"></param>
         [HttpPost]
         [Authorize]
         [RouteAttribute("post")]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]string url)
         {
-            var newFeed = new Feed(value, _db);
-            foreach (var item in newFeed.NewItems)
-            {
-                item.FeedId = newFeed.Id;
-            }
-            _db.Feeds.Add(newFeed);
-           _db.NewsItems.AddRange(newFeed.NewItems);
-            _db.SaveChanges();
+            var feedProvider = new FeedProvider(_db);
+            Feed newFeed = feedProvider.GetFeed(url);
         }
 
         // PUT api/values/5

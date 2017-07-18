@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Entity;
 using JetBrains.Annotations;
-namespace Feeds.Model
+using Feeds.Model;
+
+namespace Feeds.DAL
 {
     public class FeedDbContext: DbContext
     {

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authorization;
 using Feeds.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Newtonsoft.Json;
+using Feeds.DAL;
+
 namespace Feeds.Controllers
 {
     [Route("api/Collection")]

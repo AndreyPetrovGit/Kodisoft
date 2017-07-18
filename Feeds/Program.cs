@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Quartz;
+using Feeds.Services.Jobs;
 
 namespace Feeds
 {
@@ -19,7 +21,7 @@ namespace Feeds
                 .UseStartup<Startup>()
                 .UseApplicationInsights()
                 .Build();
-
+            FeedUpdateScheduler.Start();
             host.Run();
         }
     }

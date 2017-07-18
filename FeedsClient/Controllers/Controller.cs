@@ -60,7 +60,7 @@ namespace FeedsClient.Controllers
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine("Some Error");
+                    Console.WriteLine($"Error! Press Enter!{ex.Data}");
                 }
                 finally{
                     Console.Clear();
@@ -129,7 +129,7 @@ namespace FeedsClient.Controllers
                 }
             }catch(Exception ex)
             {
-                Console.WriteLine("Error! Press Enter!");
+                Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
 
         }
@@ -160,7 +160,7 @@ namespace FeedsClient.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error! Press Enter!");
+                Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
         }
         //2 +
@@ -191,7 +191,7 @@ namespace FeedsClient.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error! Press Enter!");
+                Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
         }
         //3 -
@@ -212,7 +212,7 @@ namespace FeedsClient.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error! Press Enter!");
+                Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
         }
         //4 +
@@ -232,7 +232,7 @@ namespace FeedsClient.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error! Press Enter!");
+                Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
 
         }
@@ -262,7 +262,7 @@ namespace FeedsClient.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error! Press Enter!");
+                Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
 
         }
@@ -293,7 +293,7 @@ namespace FeedsClient.Controllers
                 }
             }catch(Exception ex)
             {
-                Console.WriteLine("Error! Press Enter!");
+                Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
         }
         //9
@@ -321,7 +321,7 @@ namespace FeedsClient.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error! Press Enter!");
+                Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
         }
         //10
@@ -349,7 +349,7 @@ namespace FeedsClient.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error! Press Enter!");
+                Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
 
         }
@@ -381,7 +381,7 @@ namespace FeedsClient.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error! Press Enter!");
+                Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
 
         }
@@ -402,7 +402,7 @@ namespace FeedsClient.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error! Press Enter!");
+                Console.WriteLine($"Error! Press Enter!{ex.Data}");
             }
         }
         #endregion

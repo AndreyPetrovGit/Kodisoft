@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
-
+using Feeds.DAL;
 
 namespace Feeds.Controllers
 {

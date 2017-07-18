@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,10 @@ using Feeds.Middleware;
 using Feeds.Middleware.DataModels;
 using Feeds.Model;
 using Microsoft.EntityFrameworkCore;
+using Feeds.DAL;
+using Quartz;
+using Feeds.Services.Jobs;
+
 
 namespace Feeds
 {
@@ -60,6 +65,7 @@ namespace Feeds
             loggerFactory.AddDebug();
 
             app.UseMvc();
+           
         }
     }
 }

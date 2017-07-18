@@ -14,6 +14,7 @@ namespace FeedsClient
         static void Main(string[] args)
         {
             var m = new Manager();
+
             m.Run();
         }  
     }

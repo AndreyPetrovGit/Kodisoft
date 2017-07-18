@@ -11,6 +11,7 @@ using Feeds.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using Feeds.DAL;
 namespace Feeds.Controllers
 {
     [Route("api/News")]

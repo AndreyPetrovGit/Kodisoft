@@ -21,31 +21,5 @@ namespace Feeds.Model
         {
 
         }
-        public NewsItem(XmlNode itemTag, Feed feed)
-        {
-            foreach (XmlNode xmlTag in itemTag.ChildNodes)
-            {
-                switch (xmlTag.Name)
-                {
-                    case "title":
-                        {
-                            this.Title = xmlTag.InnerText;
-                            break;
-                        }
-                    case "description":
-                        {
-                            this.Description = xmlTag.InnerText;
-                            break;
-                        }
-                    case "link":
-                        {
-                            this.Link = xmlTag.InnerText;
-                            break;
-                        }
-                    default:
-                        break;
-                }
-            }
-        }
     }
 }
